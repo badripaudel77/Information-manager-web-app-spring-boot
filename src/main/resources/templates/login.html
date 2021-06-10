@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page : Information Keeper</title>
+</head>
+<body>
+ <section>
+     <form novalidate th:action="@{/loginUser}" method="post"
+           class="form" >
+
+
+         <h3 class="text-center text-info">Login Using Your Details</h3>
+         <hr>
+
+         <!--   show error conditionally      -->
+         <div th:if="${param.error}">
+             <div class="alert alert-danger">Please Provide Correct Credentials</div>
+         </div>
+
+         <!--   show logout message conditionally      -->
+         <div th:if="${param.logout}">
+             <div class="alert alert-warning">You have been logged out</div>
+         </div>
+
+         <div class="form-group">
+             <label for="email">Email address:</label>
+             <input type="email" required autofocus name="username" class="form-control" placeholder="Enter email" id="email">
+         </div>
+         <div class="form-group">
+             <label for="pwd">Password:</label>
+             <input type="password" name="password" required autofocus class="form-control" placeholder="Enter password" id="pwd">
+         </div>
+<!--         <div class="form-group form-check">-->
+<!--             <label class="form-check-label">-->
+<!--                 <input class="form-check-input" type="checkbox"> Remember me-->
+<!--             </label>-->
+<!--         </div>-->
+         <button type="submit" class="btn btn-success btn-block">Sign In</button>
+     </form>
+ </section>
+</body>
+</html>

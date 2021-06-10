@@ -1,0 +1,64 @@
+<!doctype html>
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Dashboard Page - Information Keeper</title>
+</head>
+<body>
+<div>
+    <div class="card mr-3 ml-3 p-3">
+        <h5 class="text-center" th:text="${user.name} + '\'s all notes'"></h5>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">NoteID</th>
+                <th scope="col">UserId</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+           <!--     loop through all contacts       -->
+            <tr th:each="contact: ${contacts}">
+                <th scope="row" th:text="${contact.id}"></th>
+                <th scope="row" th:text="${user.id}"></th>
+                <td th:text="${contact.name}"></td>
+                <td th:text="${contact.email}"></td>
+                <td th:text="${contact.phoneNumber}"></td>
+                <td>
+                    <button class="btn btn-info btn-sm">Details</button>
+                    <button class="btn btn-warning btn-sm">Update</button>
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+         <!--     for pagination   -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li th:if="${currentPage != 0}"  class="page-item">
+                    <a th:href="@{'/users/notes/' + ${currentPage-1}}" class="page-link">Previous</a>
+                </li>
+
+                <li th:classappend="${currentPage==i-1?'active': ''}"
+                    th:each="i: ${#numbers.sequence(1, totalPages)}"
+                    class="page-item">
+                    <a th:href="@{'/users/notes/' + ${i-1}}" class="page-link"><span th:text="${i}"></span></a>
+                </li>
+
+                <li th:if="${currentPage+1 != totalPages}" class="page-item">
+                    <a th:href="@{'/users/notes/' + ${currentPage+1}}" class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add New Information || Information Keeper</title>
+</head>
+<body>
+<div>
+<!--    Add Contact  <span th:text="${user.name}"></span>-->
+    <div class="card mr-3 ml-3 p-3">
+        <div class="card-header text-center"><h3>Add a New Note</h3></div>
+        <form name="addContact"  th:object="${contact}"
+              method="POST" enctype="multipart/form-data"
+              th:action="@{/users/addContact}">
+
+            <div class="alert" th:if="${session.message}" th:classappend="${session.message.type}" role="alert">
+                <span th:text="${session.message.content}"></span>
+                <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+            </div>
+
+            <!--    show all the the errors in one place -->
+            <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                <p><strong>Following error/s occurred</strong></p>
+                <ul><li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li></ul>
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-text"><i class="fas fa-plus-square"></i> </div>
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" required
+                       th:value="${contact.name}" name="name" aria-label="name" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-text"><i class="fas fa-envelope"></i> </div>
+                <input type="email" class="form-control" placeholder="Enter Email" required
+                       th:value="${contact.email}" id="email" name="email" aria-label="email" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                <input type="number" min="10" class="form-control" placeholder="Enter Phone Number" required
+                       th:value="${contact.phoneNumber}" id="phoneNumber" name="phoneNumber" aria-label="phoneNumber" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <textarea rows="7" id="mytextarea" class="form-control" required
+                          placeholder="Describe this note"
+                          th:text="${contact.description}" name="description" aria-label="description" aria-describedby="basic-addon1"></textarea>
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <div class="input-group-text"><i class="fas fa-images"></i></div>
+                <input type="file" class="form-control" id="image" name="profileImage">
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">Add Note</button>
+        </form>
+    </div>
+
+<!-- THIS IS NOT WORKING , I CAN'T FIGURE OUT WHY ? NOT WORKING -->
+
+<!-- include rich text editor in textarea field -->
+<!-- docs available at https://www.tiny.cloud/docs/quick-start/ -->
+
+<!-- include cdn link -->
+<!-- Initialize TinyMCE as part of a web form  -->
+<!-- description is the id of textarea field [where to include tiny MCE] (rich text editor) -->
+
+<!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
+<!--<script>-->
+<!--      tinymce.init({-->
+<!--        selector: '#mytextarea'-->
+<!--      });-->
+<!--</script>-->
+
+</div>
+</body>
+</html>

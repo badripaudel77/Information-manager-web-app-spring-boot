@@ -1,0 +1,34 @@
+<!-- Holds the base, like css , js, header which is common -->
+
+<!doctype html>
+<html lang="en" xmlns:th ="http://www.thymeleaf.org" th:fragment="layout(content)">
+
+<!-- link to css file inside of the css directory under resources folder-->
+<link rel="stylesheet" type="text/css"  th:href="@{/css/styles.css}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title th:text="${title}">Base File</title>
+</head>
+<body>
+<!-- include header here. inside of header folder header.html and fragment called header as well-->
+<div th:insert="/header/header :: header"></div>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+
+
+<!-- replace the content dynamically here -->
+<div th:replace="${content}"></div>
+
+<!--link to javascript file inside of the javascript folder in static folder-->
+<script th:src="@{/javascript/script.js}" ></script>
+
+</body>
+</html>

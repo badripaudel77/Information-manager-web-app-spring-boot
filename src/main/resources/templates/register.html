@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register Page : Information Keeper</title>
+</head>
+<body>
+    <section>
+<!--         th:object="${user}"-->
+        <form name="registerForm"
+              class="form" method="post"  th:object="${user}" th:action="@{/registerUser}">
+
+        <div class="alert" th:classappend="${session.message.type}" role="alert"
+        th:if="${session.message}">
+            <span th:text="${session.message.content}"></span>
+            <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+        </div>
+            <!--    show all the the errors in one place -->
+            <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+                <p><strong>Following error/s occurred</strong></p>
+                <ul>
+                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                  <!--    use this th:value="${user.name}" or  th:field="*{name}"          -->
+                  <!--    th:classappend="${fields.hasErrors('name')? 'is-invalid' : ''}"  -->
+                <input type="text" class="form-control"
+                        id="name" placeholder="Enter Name" name="name" required
+                        th:value="${user.name}" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" required
+                       placeholder="Enter email" name="email"
+                th:value="${user.email}">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" required
+                       placeholder="Enter password" name="password"
+                th:value="${user.password}">
+            </div>
+
+
+<!--            <div class="form-group">-->
+<!--                <label for="confirmPassword">Confirm Password:</label>-->
+<!--                <input type="password" class="form-control" id="confirmPassword"-->
+<!--                       required placeholder="confirm password" name="confirmPassword">-->
+<!--            </div>-->
+<!--            <div class="form-group error" style="display:none; color : red;">-->
+<!--                <label for="confirmPassword">Two Passwords must match.</label>-->
+<!--            </div>-->
+
+            <div class="form-group">
+                <label for="about">About:</label>
+<!--                <textarea type="text"  class="form-control" id="about" placeholder="about yourself" name="about" />-->
+                <textarea class="form-control" id="about" rows="3"
+                          name="about" required th:text="${user.about}"></textarea>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="checkbox" required class="form-check-input" id="terms" name="terms">
+                <label for="terms">Accept Terms & Condition</label>s
+            </div>
+            <button type="submit" class="btn btn-success">Register Account</button>
+        </form>
+    </section>
+</body>
+</html>
