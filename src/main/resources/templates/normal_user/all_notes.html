@@ -12,6 +12,13 @@
 <body>
 <div>
     <div class="card mr-3 ml-3 p-3">
+
+        <div class="alert" th:classappend="${session.deleteMsg.type}" role="alert"
+             th:if="${session.deleteMsg}">
+            <span th:text="${session.deleteMsg.content}"></span>
+            <th:block th:text="${#session.removeAttribute('deleteMsg')}"></th:block>
+        </div>
+
         <h5 class="text-center" th:text="${user.name} + '\'s all notes'"></h5>
         <table class="table table-striped">
             <thead>
@@ -37,7 +44,7 @@
                 <td>
                     <a th:href="@{'/users/notes/details/' + ${contact.id}}" class="btn btn-info btn-sm">Details</a>
                     <a class="btn btn-warning btn-sm">Update</a>
-                    <a class="btn btn-danger btn-sm">Delete</a>
+                    <a th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             </tbody>

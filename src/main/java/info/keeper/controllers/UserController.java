@@ -130,7 +130,8 @@ public class UserController {
 
     //show one note details.
     @GetMapping("/notes/details/{id}")
-    public String getNoteDetails(@PathVariable(value = "id") Integer id, Model model, Principal principal) {
+    public String getNoteDetails(@PathVariable(value = "id") Integer id,
+                                 Model model, Principal principal) {
         User user = userRepository.findUserByUsername(principal.getName());
         Optional<Contact> contact = contactRepository.findById(id);
 
@@ -148,5 +149,18 @@ public class UserController {
          model.addAttribute("contact", null);
         }
         return "normal_user/note_details";
+    }
+
+    //delete note
+    @DeleteMapping("/notes/delete/{id}")
+    public String deleteNote(@PathVariable(value = "id") int id,
+                             Model model, HttpSession session, Principal principal) {
+        Optional<Contact> optionalContact = contactRepository.findById(id);
+        Contact contact = optionalContact.get();
+
+        contactRepository.delete(contact);
+        session.setAttribute("deleteMsg", new Message("Note Deleted Successfully", "alert-success"));
+
+        return "redirect:/users/notes/0";
     }
 }

@@ -33,7 +33,7 @@
                 <th scope="row" th:text="${contact.id}"></th>
                 <td th:text="${contact.name}"></td>
                 <td th:text="${contact.email}"></td>
-                <td  th:text="${contact.phoneNumber}"></td>
+                <td th:text="${contact.phoneNumber}"></td>
             </tr>
             </tbody>
         </table>
@@ -41,7 +41,7 @@
         <span>Details Description : <span style="font-weight:bold;" th:text="${contact.description}"></span></span>
         <hr>
         <a class="btn btn-warning btn-block">Update</a>
-        <a class="btn btn-danger btn-block">Delete</a>
+        <a th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-block">Delete</a>
     </div>
     <h3 class="text-center alert alert-danger" th:if="${contact==null}">Information doesn't exist.</h3>
 </div>
