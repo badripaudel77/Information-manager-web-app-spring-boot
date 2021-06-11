@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/users", method = RequestMethod.GET) // for user
@@ -75,6 +76,10 @@ public class UserController {
         try {
             User user = userRepository.findUserByUsername(principal.getName());
 
+            if(file.isEmpty()) {
+                // set default avatar if file is empty
+                contact.setImageURL("default.png");
+            }
             // uploading file
             if (!file.isEmpty()) {
                 //upload file to images folder and save name to database
@@ -111,7 +116,7 @@ public class UserController {
         User user = userRepository.findUserByUsername(principal.getName());
 
        //Pageable has current page and number of notes per page
-        Pageable pageable1 = PageRequest.of(pageNumber, 2); // 5 per page
+        Pageable pageable1 = PageRequest.of(pageNumber, 5); // 5 notes per page
         Page<Contact> allContacts = contactRepository.findContactsByUser(user.getId(), pageable1);
 
         model.addAttribute("title", "All Of your Notes || Information Keeper");
@@ -121,5 +126,27 @@ public class UserController {
         model.addAttribute("totalPages", allContacts.getTotalPages());
 
         return "normal_user/all_notes";
+    }
+
+    //show one note details.
+    @GetMapping("/notes/details/{id}")
+    public String getNoteDetails(@PathVariable(value = "id") Integer id, Model model, Principal principal) {
+        User user = userRepository.findUserByUsername(principal.getName());
+        Optional<Contact> contact = contactRepository.findById(id);
+
+        //System.out.println("user id : " + user.getId() + " - " + contact.get().getUser().getId() + "");
+        if (contact.isEmpty()) {
+            model.addAttribute("contact", null);
+            return "normal_user/note_details";
+        }
+        model.addAttribute("title", "Note Details Page - " + contact.get().getName() + " - Information Keeper");
+
+        if(user.getId() == contact.get().getUser().getId()) {
+            model.addAttribute("contact", contact.get());
+        }
+        else {
+         model.addAttribute("contact", null);
+        }
+        return "normal_user/note_details";
     }
 }

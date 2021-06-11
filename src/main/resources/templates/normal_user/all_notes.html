@@ -17,7 +17,7 @@
             <thead>
             <tr>
                 <th scope="col">NoteID</th>
-                <th scope="col">UserId</th>
+<!--                <th scope="col">UserId</th>-->
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone Number</th>
@@ -27,15 +27,17 @@
             <tbody>
            <!--     loop through all contacts       -->
             <tr th:each="contact: ${contacts}">
-                <th scope="row" th:text="${contact.id}"></th>
-                <th scope="row" th:text="${user.id}"></th>
-                <td th:text="${contact.name}"></td>
+                <td scope="row" th:text="${contact.id}"></td>
+<!--                <td scope="row" th:text="${user.id}"></td>-->
+                <td>
+                    <img class="profile_pic" th:src="@{'/images/' + ${contact.imageURL}}" alt=""><span th:text="${contact.name}"></span>
+                </td>
                 <td th:text="${contact.email}"></td>
                 <td th:text="${contact.phoneNumber}"></td>
                 <td>
-                    <button class="btn btn-info btn-sm">Details</button>
-                    <button class="btn btn-warning btn-sm">Update</button>
-                    <button class="btn btn-danger btn-sm">Delete</button>
+                    <a th:href="@{'/users/notes/details/' + ${contact.id}}" class="btn btn-info btn-sm">Details</a>
+                    <a class="btn btn-warning btn-sm">Update</a>
+                    <a class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             </tbody>

@@ -66,6 +66,14 @@ color : black;
 .side_toggle {
  display : none;
 }
+
+.profile_pic {
+ width : 30px;
+ height: 30px;
+ object-fit : contain;
+ border-radius: 50%;
+ border: 1px solid gray;
+}
 /*  media query  */
 @media (max-width: 600px) {
     .sidebar {

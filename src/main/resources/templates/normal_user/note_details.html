@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Note Details Page - Information Keeper</title>
+</head>
+<body>
+<div>
+    <div th:if="${contact!=null}" class="card mr-3 ml-3 p-3">
+        <div class="card-body text-center">
+<!--            <div class="card-header text-center"><h3>Details of <span th:text="${contact.name}"></span></h3></div>-->
+            <img style="height: 180px; width: 180px; object-fit: contain; border-radius : 50%; border: 3px solid black;"
+                 th:src="@{'/images/' + ${contact.imageURL}}" class="card-img-top" alt="Card image cap">
+            <h4>Details of <span style="border-bottom: 5px solid gray;" th:text="${contact.name}"></span></h4>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#Contact ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+<!--                <th scope="col">Description</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" th:text="${contact.id}"></th>
+                <td th:text="${contact.name}"></td>
+                <td th:text="${contact.email}"></td>
+                <td  th:text="${contact.phoneNumber}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <span>Details Description : <span style="font-weight:bold;" th:text="${contact.description}"></span></span>
+        <hr>
+        <a class="btn btn-warning btn-block">Update</a>
+        <a class="btn btn-danger btn-block">Delete</a>
+    </div>
+    <h3 class="text-center alert alert-danger" th:if="${contact==null}">Information doesn't exist.</h3>
+</div>
+</body>
+</html>
