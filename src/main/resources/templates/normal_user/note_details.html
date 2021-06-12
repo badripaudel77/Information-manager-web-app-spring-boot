@@ -40,8 +40,9 @@
         <hr>
         <span>Details Description : <span style="font-weight:bold;" th:text="${contact.description}"></span></span>
         <hr>
-        <a class="btn btn-warning btn-block">Update</a>
-        <a th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-block">Delete</a>
+        <a th:href="@{/users/notes/showFormForUpdate(contactId=${contact.id})}" class="btn btn-warning btn-block">Update</a>
+        <a onclick="return confirm('are you sure to delete ?')"
+           th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-block">Delete</a>
     </div>
     <h3 class="text-center alert alert-danger" th:if="${contact==null}">Information doesn't exist.</h3>
 </div>

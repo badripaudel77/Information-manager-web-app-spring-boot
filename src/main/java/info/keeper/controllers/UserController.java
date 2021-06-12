@@ -94,6 +94,7 @@ public class UserController {
             user.getContacts().add(contact);// add this contact to the user list
 
             userRepository.save(user);// update the user
+
             model.addAttribute("contact", new Contact());
             session.setAttribute("message", new Message("New information has been added", "alert-success"));
         } catch (Exception e) {
@@ -158,9 +159,37 @@ public class UserController {
         Optional<Contact> optionalContact = contactRepository.findById(id);
         Contact contact = optionalContact.get();
 
+        User user = userRepository.findUserByUsername(principal.getName());
+        if(user.getId() != contact.getUser().getId()) {
+            session.setAttribute("deleteMsg", new Message("Not Authorized", "alert-danger"));
+            return "redirect:/users/notes/0";
+        }
         contactRepository.delete(contact);
         session.setAttribute("deleteMsg", new Message("Note Deleted Successfully", "alert-success"));
 
         return "redirect:/users/notes/0";
+    }
+
+    @GetMapping("/notes/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("contactId") int contactId, Model model,
+                                    HttpSession session, Principal principal) {
+        // get the contact for that contact id
+        System.out.println("update" + contactId);
+
+        User user = userRepository.findUserByUsername(principal.getName());
+
+        Optional<Contact> contact = contactRepository.findById(contactId);
+
+        //check if user has authority to perform this operation
+        if (contact.get().getUser().getId() != user.getId()) {
+            //deleteMsg refers to updateAuthError message
+            session.setAttribute("deleteMsg", new Message("Not Authorized", "alert-danger"));
+            return "redirect:/users/notes/0";
+        }
+        //set country as model to pre-populate the form
+        model.addAttribute("contact", contact.get());
+
+        //send to form
+        return "normal_user/add_note";
     }
 }

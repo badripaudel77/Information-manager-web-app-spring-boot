@@ -43,8 +43,8 @@
                 <td th:text="${contact.phoneNumber}"></td>
                 <td>
                     <a th:href="@{'/users/notes/details/' + ${contact.id}}" class="btn btn-info btn-sm">Details</a>
-                    <a class="btn btn-warning btn-sm">Update</a>
-                    <a th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-sm">Delete</a>
+                    <a th:href="@{/users/notes/showFormForUpdate(contactId=${contact.id})}" class="btn btn-warning btn-sm">Update</a>
+                    <a onclick="return confirm('are you sure to delete ?')" th:href="@{'/users/notes/delete/' + ${contact.id}}" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
             </tbody>

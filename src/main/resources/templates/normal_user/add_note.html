@@ -18,6 +18,10 @@
               method="POST" enctype="multipart/form-data"
               th:action="@{/users/addContact}">
 
+            <!-- hidden input id -->
+            <input type="hidden" th:field="*{id}" class="form-control"
+                   name="id" id="id" />
+
             <div class="alert" th:if="${session.message}" th:classappend="${session.message.type}" role="alert">
                 <span th:text="${session.message.content}"></span>
                 <th:block th:text="${#session.removeAttribute('message')}"></th:block>
