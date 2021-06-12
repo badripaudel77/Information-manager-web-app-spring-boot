@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -87,6 +88,7 @@ public class UserController {
                 //System.out.println("\n original file name : " + file.getOriginalFilename() + " contact id : " + contact.getId());
                 File folderToSaveFile = new ClassPathResource("static/images").getFile();
                 Path path = Paths.get(folderToSaveFile.getAbsolutePath() + File.separator + user.getId() + "_" + file.getOriginalFilename());
+
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             }
             // bi-directional mapping
@@ -155,7 +157,7 @@ public class UserController {
     //delete note
     @DeleteMapping("/notes/delete/{id}")
     public String deleteNote(@PathVariable(value = "id") int id,
-                             Model model, HttpSession session, Principal principal) {
+                             Model model, HttpSession session, Principal principal) throws IOException {
         Optional<Contact> optionalContact = contactRepository.findById(id);
         Contact contact = optionalContact.get();
 
@@ -164,6 +166,11 @@ public class UserController {
             session.setAttribute("deleteMsg", new Message("Not Authorized", "alert-danger"));
             return "redirect:/users/notes/0";
         }
+        // delete image also
+        File folderToDeleteFile = new ClassPathResource("static/images").getFile();
+        File file = new File(folderToDeleteFile, contact.getImageURL());
+        file.delete();
+
         contactRepository.delete(contact);
         session.setAttribute("deleteMsg", new Message("Note Deleted Successfully", "alert-success"));
 
