@@ -199,4 +199,14 @@ public class UserController {
         //send to form
         return "normal_user/add_note";
     }
+
+    //show profile page
+    @GetMapping("/profile/")
+    public String showProfileOfUser(Model model, Principal principal) {
+        User user = userRepository.findUserByUsername(principal.getName());
+
+        model.addAttribute("user", user);
+        model.addAttribute("title", "Profile Page - " + user.getName());
+        return "normal_user/profile";
+    }
 }

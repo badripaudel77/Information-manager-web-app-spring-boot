@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Profile Page - Information Keeper</title>
+</head>
+<body>
+<div th:if="${user!=null}" class="card mr-3 ml-3 p-3">
+    <div class="card-body text-center">
+        <!--            <div class="card-header text-center"><h3>Details of <span th:text="${contact.name}"></span></h3></div>-->
+        <img style="height: 180px; width: 180px; object-fit: contain; border-radius : 50%; border: 3px solid black;"
+             th:src="@{/images/default.png}" class="card-img-top" alt="Card image cap">
+        <h4>Profile of <span style="border-bottom: 5px solid gray;" th:text="${user.name}"></span></h4>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#User ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Active Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row" th:text="${user.id}"></th>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.isActive}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <span>About Myself : <span style="font-weight:bold;" th:text="${user.about}"></span></span>
+</div>
+<h3 class="text-center alert alert-danger" th:if="${user==null}">Information Not Found.</h3>
+</div>
+</body>
+</html>
