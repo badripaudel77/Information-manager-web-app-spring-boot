@@ -4,6 +4,7 @@ import info.keeper.models.User;
 import info.keeper.repositories.UserRepository;
 import info.keeper.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 // handling all routes related to home page [ public page ]
@@ -29,14 +34,8 @@ public class HomeController {
     @GetMapping("/")
     public String homePage(Model model) {
         model.addAttribute("title", "Home Page - Information Keeper");
-        return "home"; // return home.html page from templates folder
-    }
 
-    // displays about page
-    @GetMapping("/about")
-    public String aboutPage(Model model) {
-        model.addAttribute("title", "About Page - Information Keeper");
-        return "about"; // return home.html page from templates folder
+        return "home"; // return home.html page from templates folder
     }
 
     // displays custom login page @Handle custom login
@@ -71,10 +70,11 @@ public class HomeController {
             if(validateUser(user)) {
                 throw  new Exception("User with that email  already exists, try again with your new email.");
             }
+            //user.setRole("ROLE_ADMIN"); // saving few data for admin
             user.setRole("ROLE_USER"); // DEFAULT Role is USER
             user.setActive(true);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-
+            user.setEmail(user.getEmail().toLowerCase());
             this.userRepository.save(user);
             model.addAttribute("user", new User());
             session.setAttribute("message",  new Message("Registration has been completed, now sign in" , "alert-success"));
@@ -87,6 +87,15 @@ public class HomeController {
         }
         return "register";
     }
+
+    //show password reset page
+    @GetMapping("/forgot-password")
+    public String showForgotPWPage(Model model) {
+        model.addAttribute("title", "Password Reset Page");
+        return "normal_user/forgot-password";
+    }
+
+    //validate user
     private boolean validateUser(User user) {
          User u =  userRepository.findUserByUsername(user.getEmail());
          return u!= null;

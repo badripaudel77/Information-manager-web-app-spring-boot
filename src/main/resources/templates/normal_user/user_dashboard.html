@@ -10,17 +10,38 @@
     <title>User Dashboard Page - Information Keeper</title>
 </head>
 <body>
-      <div>
-        <!--
-            included in base page.
-            <div th:insert="/header/user_dashboard_header :: user_header"></div>
-          -->
-          <!-- <span class="alert alert-danger"> hello</span> -->
+<div>
+    <!--
+        included in base page.
+        <div th:insert="/header/user_dashboard_header :: user_header"></div>
+      -->
+    <!-- <span class="alert alert-danger"> hello</span> -->
 
-          <h4>Hello <span th:text="${user.name}"></span></h4>
-          <div class="card mr-3 ml-3 p-3">
+    <div class="card mr-3 ml-3 p-3">
+        <h4 class="text-center">Welcome, <span class="text-info" th:text="${user.name}"></span></h4>
+        <hr>
+        <div class="text-center">
+            <img style="height: 180px; width: 180px; object-fit: contain; border-radius : 50%; border: 3px solid black;"
+                 th:src="@{/images/default.png}" class="card-img-top" alt="Card image cap">
+        </div>
 
-          </div>
-      </div>
+        <div class="card-header text-center mt-20"><h3>Add Some Notes !!! </h3></div>
+
+        <a th:href="@{/users/addNote}"class="btn btn-primary mt-10 btn-block">Add Now</a>
+    </div>
+<!--    <script>-->
+<!--        let items = document.getElementsByClassName("item");-->
+<!--        &lt;!&ndash; alert(items.length);  &ndash;&gt;-->
+<!--        &lt;!&ndash;    remove active class first    &ndash;&gt;-->
+<!--        for(i in items) {-->
+<!--       &lt;!&ndash; alert(items[i].className)&ndash;&gt;-->
+<!--            if(items[i].className === 'item active') {-->
+<!--                 items[i].classList.remove('active');-->
+<!--            }-->
+<!--        }-->
+<!--        const settingsLink = document.getElementById("settings-link");-->
+<!--        settingsLink.classList.add("active");-->
+<!--    </script>-->
+</div>
 </body>
 </html>

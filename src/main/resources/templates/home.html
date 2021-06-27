@@ -15,6 +15,19 @@
            <h4>Recall Anywhere Anytime</h4>
            <a class="btn btn-warning btn-lg text-white" href="/register">Get Started</a>
        </section>
+    <script>
+        let items = document.getElementsByClassName("item");
+        <!-- alert(items.length);  -->
+        <!--    remove active class first    -->
+        for(i in items) {
+       <!-- alert(items[i].className)-->
+            if(items[i].className === 'item active') {
+                 items[i].classList.remove('active');
+            }
+        }
+        const homeLink = document.getElementById("home-link");
+        homeLink.classList.add("active");
+    </script>
 </div>
 </body>
 </html>

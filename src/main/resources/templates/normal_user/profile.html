@@ -24,6 +24,7 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Active Status</th>
+            <th scope="col">User Role</th>
         </tr>
         </thead>
         <tbody>
@@ -32,11 +33,27 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.isActive}"></td>
+            <td th:text="${user.role}"></td>
         </tr>
         </tbody>
     </table>
     <hr>
     <span>About Myself : <span style="font-weight:bold;" th:text="${user.about}"></span></span>
+
+    <script>
+        let items = document.getElementsByClassName("item");
+        <!-- alert(items.length);  -->
+        <!--    remove active class first    -->
+        for(i in items) {
+       <!-- alert(items[i].className)-->
+            if(items[i].className === 'item active') {
+                 items[i].classList.remove('active');
+            }
+        }
+        const profileLink = document.getElementById("profile-link");
+        profileLink.classList.add("active");
+    </script>
+
 </div>
 <h3 class="text-center alert alert-danger" th:if="${user==null}">Information Not Found.</h3>
 </div>

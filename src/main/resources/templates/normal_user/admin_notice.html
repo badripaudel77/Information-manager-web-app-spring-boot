@@ -1,0 +1,42 @@
+<!doctype html>
+
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Information Keeper || About Page</title>
+</head>
+<body>
+ <div class="card mr-3 ml-3 p-3">
+        <div class="card-body">
+            <div class="card-header text-center">
+                <h6>Admin Notice/s has/have arrived</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#MessageID</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Posted On</th>
+                        <th scope="col">Posted By[Admin]</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message: ${adminMsgList}">
+                        <th scope="row" th:text="${message.id}">Id Not Available</th>
+                        <td th:text="${message.message}">Message Not Available</td>
+                        <td th:text="${message.date}">Date Not available</td>
+                        <td th:text="${message.postedBy}">Posted By Admin</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

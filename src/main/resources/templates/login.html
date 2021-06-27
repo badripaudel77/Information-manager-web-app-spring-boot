@@ -10,10 +10,8 @@
 </head>
 <body>
  <section>
-     <form novalidate th:action="@{/loginUser}" method="post"
+     <form th:action="@{/loginUser}" method="post"
            class="form" >
-
-
          <h3 class="text-center text-info">Login Using Your Details</h3>
          <hr>
 
@@ -35,13 +33,13 @@
              <label for="pwd">Password:</label>
              <input type="password" name="password" required autofocus class="form-control" placeholder="Enter password" id="pwd">
          </div>
-<!--         <div class="form-group form-check">-->
-<!--             <label class="form-check-label">-->
-<!--                 <input class="form-check-input" type="checkbox"> Remember me-->
-<!--             </label>-->
-<!--         </div>-->
          <button type="submit" class="btn btn-success btn-block">Sign In</button>
      </form>
+         <div class="form-group form-check text-center">
+             <label class="form-check-label">
+                 <a th:href="@{/forgot-password}">Forgot Password?</a>
+             </label>
+         </div>
  </section>
 </body>
 </html>

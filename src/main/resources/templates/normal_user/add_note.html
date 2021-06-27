@@ -82,6 +82,19 @@
 <!--      });-->
 <!--</script>-->
 
+    <script>
+        let items = document.getElementsByClassName("item");
+        <!-- alert(items.length);  -->
+        <!--    remove active class first    -->
+        for(i in items) {
+       <!-- alert(items[i].className)-->
+            if(items[i].className === 'item active') {
+                 items[i].classList.remove('active');
+            }
+        }
+        const addNote = document.getElementById("add-note-link");
+        addNote.classList.add("active");
+    </script>
 </div>
 </body>
 </html>

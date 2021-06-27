@@ -1,6 +1,6 @@
-<nav class="navbar fixed-top navbar-expand-sm bg-custom navbar-dark text-uppercase" th:fragment="user_header"
+<nav class="navbar fixed-top navbar-expand-sm bg-custom navbar-dark text-uppercase" th:fragment="admin_header"
      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-        <a class="navbar-brand">Your Dashboard</a>
+        <a class="navbar-brand">Admin Dashboard</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -8,14 +8,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <a class="nav-link" th:href="@{/admin/index}">Home</a>
                 </li>
 <!--                <li class="nav-item">-->
 <!--                    <span class="nav-link" sec:authentication="principal.username">Hello,User</span>-->
 <!--                </li>-->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/admin-notice}">Admin Notice</a>
-                </li>
                 <li class="nav-item">
                     <a onclick="return confirm('are you sure to exit ?')"
                        class="nav-link" th:href="@{/logout}">Logout</a>

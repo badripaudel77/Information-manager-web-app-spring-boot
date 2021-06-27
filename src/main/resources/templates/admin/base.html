@@ -1,5 +1,4 @@
 <!-- Holds the base, like css , js, header which is common -->
-
 <!doctype html>
 <html lang="en" xmlns:th ="http://www.thymeleaf.org" th:fragment="layout(content)">
 
@@ -14,36 +13,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title th:text="${title}">Base File</title>
+    <title th:text="${title}">Base File || Admin Page</title>
 </head>
 <body>
-<!-- include header here. inside of header folder header.html and fragment called user_header as well-->
-<div th:insert="/header/user_dashboard_header :: user_header"></div>
+<!-- include header here. inside of header folder header.html and fragment called admin_header as well-->
+<div th:insert="/header/admin_header :: admin_header"></div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
 
 
-<div class="sidebar" id="sidebar">
-    <span class="cross_icon"><i class="fas fa-times" onclick="toggleMenu()" ></i></span>
-    <a th:href="@{/users}" class="item active" id="home-link"><i class="fas fa-home"></i> Home</a>
-    <a th:href="@{/users/notes/0}" class="item" id="all-notes-link"> <i class="fas fa-address-card"></i> View Notes</a>
-    <a th:href="@{/users/addNote}" class="item" id="add-note-link"> <i class="fas fa-file-signature"></i> Add Note</a>
-    <a th:href="@{/users/profile/}" class="item" id="profile-link"> <i class="fas fa-user-alt"></i> Profile</a>
-    <a th:href="@{/users/settings}" class="item" id="settings-link"> <i class="fas fa-cog"></i> Settings</a>
-    <a onclick="return confirm('are you sure to exit ?')"
-       th:href="@{/logout}" class="item" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-</div>
+<!--<div class="sidebar" id="sidebar">-->
+<!--    <span class="cross_icon"><i class="fas fa-times" onclick="toggleMenu()" ></i></span>-->
+<!--    <a th:href="@{/users}" class="item"><i class="fas fa-home"></i> Home</a>-->
+<!--    <a th:href="@{/users/notes/0}" class="item"> <i class="fas fa-address-card"></i> View Notes</a>-->
+<!--    <a th:href="@{/users/addNote}" class="item"> <i class="fas fa-file-signature"></i> Add Note</a>-->
+<!--    <a th:href="@{/users/profile/}" class="item"> <i class="fas fa-user-alt"></i> Profile</a>-->
+<!--    <a th:href="@{/users}" class="item"> <i class="fas fa-cog"></i> Settings</a>-->
+<!--    <a onclick="return confirm('are you sure to exit ?')"-->
+<!--       th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>-->
+<!--</div>-->
 
 <div class="content">
     <!-- replace the content dynamically here -->
-    <i class="fas fa-bars m-2 side_toggle" id="side_toggle" onclick="toggleMenu()"></i>
+<!--    <i class="fas fa-bars m-2 side_toggle" id="side_toggle" onclick="toggleMenu()"></i>-->
     <div th:replace="${content}"></div>
 </div>
 
 <!--link to javascript file inside of the javascript folder in static folder-->
-<script th:src="@{/javascript/script.js}" ></script>
+<!--<script th:src="@{/javascript/script.js}" ></script>-->
 
 </body>
 </html>

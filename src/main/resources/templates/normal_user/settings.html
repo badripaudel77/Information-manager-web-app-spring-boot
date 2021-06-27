@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- inherit the base page of /normal_user/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal_user/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Settings Page - Information Keeper</title>
+</head>
+<body>
+<div>
+    <div class="card mr-3 ml-3 p-3">
+        <h4 class="text-center">Welcome, <span class="text-info" th:text="${user.name}"></span></h4>
+        <hr>
+        <div class="text-center">
+            <img style="height: 180px; width: 180px; object-fit: contain; border-radius : 50%; border: 3px solid black;"
+                 th:src="@{/images/default.png}" class="card-img-top" alt="Card image cap">
+        </div>
+
+        <div class="card-header text-center mt-20"><h3>Change Your Password</h3></div>
+
+        <form th:action="@{/users/resetPassword}" method="post">
+
+        <!--   show message conditionally      -->
+            <div th:if="${pwUpdated}">
+                <div class="alert alert-success"><span th:text="${pwUpdated}">Password Updated</span></div>
+            </div>
+
+            <!--   show password mismatch error message conditionally      -->
+            <div th:if="${pwMismatch}">
+                <div class="alert alert-danger"><span th:tex="${pwMismatch}">Password Didn't Match</span></div>
+            </div>
+
+            <div class="form-group">
+                <label for="old_password">Old Password</label>
+                <input type="password" required autofocus name="oldPassword" class="form-control" placeholder="Enter Old Password" id="old_password">
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password:</label>
+                <input type="text" name="newPassword" required autofocus class="form-control" placeholder="Enter new password" id="new_password">
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Change Password</button>
+        </form>
+    </div>
+    <script>
+        let items = document.getElementsByClassName("item");
+        <!-- alert(items.length);  -->
+        <!--    remove active class first    -->
+        for(i in items) {
+       <!-- alert(items[i].className)-->
+            if(items[i].className === 'item active') {
+                 items[i].classList.remove('active');
+            }
+        }
+        const settingsLink = document.getElementById("settings-link");
+        settingsLink.classList.add("active");
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- inherit the base page of /admin/base-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="admin/base::layout(~{::div})">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<div class="card mr-3 ml-3 p-3">
+    <div class="card-body text-center">
+        <div class="card-header text-center"><span>You're logged in as :
+            <h5 th:text="${user.email}"></h5></span>
+        </div>
+        <br>
+        <form
+                th:object="${adminMessage}" method="POST"
+                th:action="@{/admin/saveMessage}"
+        >
+            <div class="alert" th:if="${session.message}" th:classappend="${session.message.type}" role="alert">
+                <span th:text="${session.message.content}"></span>
+                <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+            </div>
+
+            <div class="input-group mb-3 mt-3">
+                <textarea rows="7" id="mytextarea" class="form-control" required
+                          placeholder="Describe the message"
+                          name="message" aria-label="message" aria-describedby="basic-addon1"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Send Notice to Everyone</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
