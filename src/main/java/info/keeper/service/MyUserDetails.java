@@ -1,19 +1,21 @@
 package info.keeper.service;
 
 import info.keeper.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Service
 public class MyUserDetails implements UserDetails {
     private User user;
+
+    //in java 8 way
+    private ArrayList<SimpleGrantedAuthority> grantedLists = new ArrayList<>();
 
     public MyUserDetails() { }
 
@@ -24,7 +26,11 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-        return List.of(simpleGrantedAuthority);
+       // return List.of(simpleGrantedAuthority); // only defined in JDK 9+
+
+        //java 8 way
+        grantedLists.add(simpleGrantedAuthority);
+        return grantedLists;
     }
 
     @Override

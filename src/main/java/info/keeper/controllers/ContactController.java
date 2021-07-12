@@ -126,7 +126,7 @@ public class ContactController {
         Optional<Contact> contact = contactRepository.findById(id);
 
         //System.out.println("user id : " + user.getId() + " - " + contact.get().getUser().getId() + "");
-        if (contact.isEmpty()) {
+        if (!contact.isPresent()) {
             model.addAttribute("contact", null);
             return "normal_user/note_details";
         }
