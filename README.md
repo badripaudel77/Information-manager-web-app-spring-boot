@@ -5,7 +5,7 @@
 #### Uses MVC pattern
 
 ##### Dependency Used : 
-                      Spring Web, Data JPA, Thymeleaf, Security, MySQL 
+                      Spring Web, Hibernate, Data JPA, Thymeleaf, Security, PostgresSQL 
                       
 ----------------------------------------------------------------------
 #### Project file Structure
