@@ -26,4 +26,21 @@ MVC
 ##### Controller [C] -> Holds all the required business logic
 
 ---------------------------------------------------------------
+
+## Deploy full stack Spring Boot application in elastic bean stalk
+
+####  steps : 
+
+- First create Relational Database Instance [ RDS instance]
+   - From console create database
+   - fill the details...
+   - set spring profiles like application-profilename.properties and in config from IDE in run dropdow set --spring.profiles.active=profilename
+   - set port to 5000 because elastic bean stalk needs it
+
+  - Must add security bound rules.... from RDS instance clicking on security group
+  
+- Create Elastci Beanstalk
+  - create enviroment and configure .... and done. 
+  - now deploy the jar fire from target using mavent install generated jar and it should be it. 
+- 
                       
