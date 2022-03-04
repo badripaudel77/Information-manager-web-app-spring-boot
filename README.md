@@ -41,7 +41,7 @@ MVC
   
 - Create Elastci Beanstalk
   - create enviroment and configure .... and done. 
-  - now deploy the jar fire from target using mavent install generated jar and it should be it. 
+  - now deploy the jar fire from target using maven install generated jar and it should be it. 
 
 ### Application has been deployed to AWS cloud
 

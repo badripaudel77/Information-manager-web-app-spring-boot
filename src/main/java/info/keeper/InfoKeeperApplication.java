@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class InfoKeeperApplication {
 	public static void main(String[] args) {
+		System.out.println(">>application starting");
 		SpringApplication.run(InfoKeeperApplication.class, args);
-		System.out.println("running - Checked.");
+		System.out.println("<<application started fine");
 	}
 }
