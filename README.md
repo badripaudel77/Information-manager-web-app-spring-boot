@@ -2,6 +2,9 @@
 ------------
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
 
+---------------------------------
+### This repo contains code without docker, uses localhost postgres and all the dependencies from local machine
+---------------------------------
 #### Uses MVC pattern
 
 ##### Dependency Used : 
