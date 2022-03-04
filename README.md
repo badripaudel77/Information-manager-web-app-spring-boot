@@ -28,10 +28,9 @@ MVC
 ---------------------------------------------------------------
 
 ### Run Using docker
-- **Docker build : **  _**docker build --tag spring-docker .
-**_
+- **Docker build :**  _**docker build --tag spring-docker .**_
 
-**Run Docker Image :** _**docker run -p 8080:8080 spring-docker**_
+- **Run Docker Image :** _**docker run -p 8080:8080 spring-docker**_
 
 ---------------------------------------------------------------
 
