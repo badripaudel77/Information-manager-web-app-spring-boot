@@ -3,7 +3,10 @@
 ------------
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
 
-#### Docker Image is available at : [Docker Hub Badri Paudel](https://hub.docker.com/repository/docker/badripaudel77/info-keeper-spring-boot-docker) One can pull the image to #### test using _**docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app**_ and run using docker run command _**docker run -p 8080:8080 badripaudel77/info-keeper-spring-boot-docker:my-info-app**_ hit localhost:8080 and you should good to see the result. 
+#### Docker Image is available at : [Docker Hub Badri Paudel](https://hub.docker.com/repository/docker/badripaudel77/info-keeper-spring-boot-docker) One can pull the image
+
+#### To test using _**docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app**_ and run using docker run command _**docker run -p 8080:8080 badripaudel77/info-keeper-spring-boot-docker:my-info-app**_ hit localhost:8080 and you should good to see the result. 
+
 ### In case you get connection error from postgress, make sure you've allowed that added IP in application.properties file to pg_hba.conf in IPV4 Address section
 ------------------
 ------------------
