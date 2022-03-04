@@ -27,6 +27,14 @@ MVC
 
 ---------------------------------------------------------------
 
+### Run Using docker
+**Docker build -** =  _**docker build --tag spring-docker .
+**_
+
+_**docker run -p 8080:8080 spring-docker**_
+
+---------------------------------------------------------------
+
 ## Deploy full stack Spring Boot application in elastic bean stalk
 
 ####  steps : 
