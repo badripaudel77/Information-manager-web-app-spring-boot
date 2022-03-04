@@ -5,11 +5,11 @@
 
 #### Docker Image is available at : [Docker Hub Badri Paudel](https://hub.docker.com/repository/docker/badripaudel77/info-keeper-spring-boot-docker) One can pull the image
 
-#### To test use command  _**docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app**_ 
+#### To test use command  ```_**docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app**_``` 
 
-#### and to run, type the command _**docker run -p 8080:8080 badripaudel77/info-keeper-spring-boot-docker:my-info-app**_  and hit localhost:8080 in browser and you should good to see the result. 
+#### and to run, type the command ```_**docker run -p 8080:8080 badripaudel77/info-keeper-spring-boot-docker:my-info-app**_```  and hit ```localhost:8080``` in browser and you should good to see the result. 
 
-### In case you get connection error from postgress, make sure you've allowed that added IP in application.properties file to pg_hba.conf in IPV4 Address section
+### In case you get connection error from postgress, make sure you've allowed that added IP in application.properties file to ```pg_hba.conf``` in IPV4 Address section
 ------------------
 ------------------
 #### Uses MVC pattern
@@ -38,9 +38,9 @@ MVC
 ---------------------------------------------------------------
 
 ### Run Using docker
-- **Docker build :**  _**docker build --tag spring-docker .**_
+- **Docker build :** ``` _**docker build --tag spring-docker .**_```
 
-- **Run Docker Image :** _**docker run -p 8080:8080 spring-docker**_
+- **Run Docker Image :** ```_**docker run -p 8080:8080 spring-docker**_```
 
 ---------------------------------------------------------------
 
