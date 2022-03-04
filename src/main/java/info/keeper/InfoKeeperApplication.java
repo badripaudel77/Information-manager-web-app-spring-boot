@@ -8,6 +8,6 @@ public class InfoKeeperApplication {
 	public static void main(String[] args) {
 		System.out.println(">>application starting");
 		SpringApplication.run(InfoKeeperApplication.class, args);
-		System.out.println("<<application started fine");
+		System.out.println("<<application started fine in localhost [without docker");
 	}
 }
