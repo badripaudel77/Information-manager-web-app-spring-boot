@@ -1,0 +1,42 @@
+# Reference : https://www.section.io/engineering-education/running-a-multi-container-springboot-postgresql-application-with-docker-compose/
+
+version: '3.1'
+services:
+  APP:
+    # pull docker image that I've already created for this application. It can be local docker image as well
+    image: badripaudel77/info-keeper-spring-boot-docker:my-info-app
+    # map ports of 8080 from my computer to the docker container's port of 8080
+    ports:
+      - "8080:8080"
+
+    # This APP services depends upon postgres Service
+    depends_on:
+      [PostgreSQL]
+    restart: always
+
+    #Define Environment
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/info_keeper_sb_docker
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=_BadriPostgres1@
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  PostgreSQL:
+
+    #official image of postgres from the docker hub
+    image: postgres
+
+    # map the ports for postgres
+    ports:
+      - "5432:5432"
+
+    # define environments for the postgres
+    environment:
+      - POSTGRES_PASSWORD=_BadriPostgres1@
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=info_keeper_sb_docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
