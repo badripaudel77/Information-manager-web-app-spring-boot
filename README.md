@@ -3,7 +3,7 @@
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
 
 ---------------------------------
-### This repo contains code without docker, uses localhost postgres and all the dependencies from local machine
+### This repo contains code [without docker] uses localhost postgres and all the dependencies from local machine
 ---------------------------------
 #### Uses MVC pattern
 
@@ -30,22 +30,21 @@ MVC
 
 ---------------------------------------------------------------
 
-## Deploy full stack Spring Boot application in elastic bean stalk
+## Deploy full stack Spring Boot application in elastic bean stalk [Amazon web services]
 
 ####  steps : 
 
 - First create Relational Database Instance [ RDS instance]
    - From console create database
    - fill the details...
-   - set spring profiles like application-profilename.properties and in config from IDE in run dropdow set --spring.profiles.active=profilename
+   - set spring profiles like application-profilename.properties and in config from IDE in run dropdown set --spring.profiles.active=profilename
    - set port to 5000 because elastic bean stalk needs it
 
   - Must add security bound rules.... from RDS instance clicking on security group
   
-- Create Elastci Beanstalk
-  - create enviroment and configure .... and done. 
+- Create Elastic Beanstalk
+  - create environment and configure .... and done. 
   - now deploy the jar fire from target using maven install generated jar and it should be it. 
 
-### Application has been deployed to AWS cloud
+### Application has been deployed to AWS cloud [Note the link may not work in the future]
 
-                      
