@@ -3,6 +3,8 @@
 ------------
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
 
+### Runs in docker with local postgres database
+
 #### Docker Image is available at : [Docker Hub Badri Paudel](https://hub.docker.com/repository/docker/badripaudel77/info-keeper-spring-boot-docker) One can pull the image
 
 #### To test use command  _**```docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app```**_
