@@ -32,9 +32,7 @@ services:
     ports:
       - "5433:5432"
 
-    #persist the database in the pg_data folder [created using mkdir pg_data in the current dir] and can access from adding datasource on intellij or anywhere on port 5433
-    volumes:
-      - ./pg_data:/var/lib/postgresql/data
+
 
     # define environments for the postgres
     environment:
