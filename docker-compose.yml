@@ -16,6 +16,10 @@ services:
       [pg_database]
     restart: always
 
+    #persist the database in the pg_data folder [created using mkdir pg_data in the current dir] and can access from adding datasource on intellij or anywhere on port 5433
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+
     #Define Environment
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/info_keeper_sb_docker
