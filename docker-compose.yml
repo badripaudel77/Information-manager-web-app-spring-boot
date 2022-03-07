@@ -4,7 +4,8 @@ version: '3.1'
 services:
   APP:
     # pull docker image that I've already created for this application. It can be local docker image as well
-    image: badripaudel77/info-keeper-spring-boot-docker:my-info-app
+    image: badripaudel77/info-keeper-spring-boot-docker:my-info-app #docker image from the docker-hub
+    # image: 'info-keeper-spring-boot-docker-local' #local image build using docker-build command
     # map ports of 8080 from my computer to the docker container's port of 8080
     ports:
       - "8080:8080"
