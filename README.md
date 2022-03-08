@@ -5,8 +5,6 @@
 
 #### 'Uses Docker Image available at docker hub link below and postgres official docker image to run the application with docker-compose'
 
-#### Docker Image is available at : [Docker Hub Badri Paudel](https://hub.docker.com/repository/docker/badripaudel77/info-keeper-spring-boot-docker) One can pull the image
-
 #### To test use command  _**```docker pull badripaudel77/info-keeper-spring-boot-docker:my-info-app```**_
 
 #### and to run, type the command _**```docker run -p 8080:8080 badripaudel77/info-keeper-spring-boot-docker:my-info-app```**_  and hit ```localhost:8080``` in browser and you should good to see the result. 
