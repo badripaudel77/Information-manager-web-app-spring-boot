@@ -1,4 +1,5 @@
-## My Info
+## Info Keeper Spring-Boot, Java, PostgreSQL, Spring-Security application : explanation.
+#### Local Branch : Set to trigger Jenkins after push
 ------------
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
 
