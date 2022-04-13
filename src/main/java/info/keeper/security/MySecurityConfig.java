@@ -26,6 +26,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/users/**").hasRole("USER")
+                .antMatchers("/download/notes").hasRole("USER")
+                .antMatchers("/downloads/users").hasRole("ADMIN")
                 .antMatchers("/**").permitAll() // permit all urls others than /admin/** & /users/**
                 .and()
                 .formLogin()
