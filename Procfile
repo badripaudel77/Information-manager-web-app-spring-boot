@@ -1,0 +1,1 @@
+web: java -jar target/info_keeper-0.0.1-SNAPSHOT.jar
