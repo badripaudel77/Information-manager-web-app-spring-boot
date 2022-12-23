@@ -26,7 +26,8 @@ public class DownloadController {
         Integer userId = userRepository.findUserByUsername(principal.getName()).getId();
         boolean isNotesDownloaded = downloadService.downloadUsersNotes(userId);
         String message = null;
-        if(isNotesDownloaded) message = "File has been downloaded in your computer successfully.";
+        if(isNotesDownloaded) message = "File has been downloaded at location " +
+                System.getProperty("user.home") + "/notes";
         String username = principal.getName();
         //get user using username
         User user = userRepository.findUserByUsername(username);

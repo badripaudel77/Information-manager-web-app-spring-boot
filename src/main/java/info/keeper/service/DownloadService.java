@@ -9,6 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class DownloadService {
         List<Contact> userContacts = contactRepository.allNotesByUserId(userId);
         if(userContacts.size() <1) return false;
         boolean isSuccess = true;
+        String notesFolder = "";
         //Create blank workbook
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -57,7 +59,13 @@ public class DownloadService {
         try {
             //Write the workbook in file system
             String home = System.getProperty("user.home");
-            FileOutputStream out = new FileOutputStream(home + "/notes_" +userId  + ".xlsx");
+            if(new File(home+ "/notes").exists()) {
+                notesFolder = "notes";
+            }
+            else {
+                new File(home + "/notes").mkdir();
+            }
+            FileOutputStream out = new FileOutputStream(home + "/" + notesFolder + "/note_" +userId  + ".xlsx");
             workbook.write(out);
             out.close();
             System.out.println("saved in computer.");
