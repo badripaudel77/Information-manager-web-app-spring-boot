@@ -14,7 +14,10 @@ WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
-# install dependencies on into image
+# Avoid permission error, change the permission.
+RUN chmod +x mvnw
+
+# Install dependencies on into image
 RUN ./mvnw dependency:go-offline
 
 

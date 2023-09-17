@@ -7,9 +7,9 @@ services:
     # pull docker image that I've already created for this application. It can be local docker image as well
     # image: badripaudel77/info-keeper-spring-boot-docker:my-info-app #docker image from the docker-hub
     # image: 'info-keeper-spring-boot-docker-local' #local image build using docker-build command
-    # map ports of 8080 from my computer to the docker container's port of 8080
+    # map ports of 8080 from my computer to the docker container's port of 5000
     ports:
-      - "8080:8080"
+      - "5000:8080"
 
     # This APP services depends upon postgres Service
     depends_on:
@@ -18,21 +18,27 @@ services:
 
     #Define Environment
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/info_keeper_sb_docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/test_dump
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=_BadriPostgres1@
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   pg_database:
 
-    #official image of postgres from the docker hub
+    #official image of postgres from the docker hub, by default pulls the latest one.
     image: postgres
 
     # map the ports for postgres
     ports:
       - "5433:5432"
-
-
+# As data is stored on container's volume, it will be erased once we delete or remove the container.
+# to persist data even after the removal of the container, we need to mount volume so that the volume on /var/lib/postgresql/data
+# will be mapped to the given location.
+# in my case  /Users/badripaudel/IdeaProjects/Information-Keeper-SB/data it has data and app using the same docker compose file
+# use data from this location.
+    volumes:
+#      - grails_web_db:/var/lib/postgresql/data
+      - /Users/badripaudel/IdeaProjects/Information-Keeper-SB/data:/var/lib/postgresql/data
 
     # define environments for the postgres
     environment:
@@ -44,3 +50,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+#volumes:
+#  grails_web_db:

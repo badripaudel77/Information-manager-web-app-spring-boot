@@ -29,6 +29,9 @@
 
         <a th:href="@{/users/addNote}"class="btn btn-primary mt-10 btn-block">Add Now</a>
     </div>
+    <div class="card mr-3 ml-3 p-3 mt-20 text-center alert alert-info" th:if="${downloadStatus}">
+        <p class="text-alert" th:text="${downloadStatus}"></p>
+    </div>
 <!--    <script>-->
 <!--        let items = document.getElementsByClassName("item");-->
 <!--        &lt;!&ndash; alert(items.length);  &ndash;&gt;-->

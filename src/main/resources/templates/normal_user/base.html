@@ -32,6 +32,7 @@
     <a th:href="@{/users/addNote}" class="item" id="add-note-link"> <i class="fas fa-file-signature"></i> Add Note</a>
     <a th:href="@{/users/profile/}" class="item" id="profile-link"> <i class="fas fa-user-alt"></i> Profile</a>
     <a th:href="@{/users/settings}" class="item" id="settings-link"> <i class="fas fa-cog"></i> Settings</a>
+    <a th:onclick="return confirm('Downloading is a heavy task, are you sure to download data ? ')" th:href="@{/download/notes}" class="item" id="download-link"> <i class="fas fa-cog"></i> Download Your Notes</a>
     <a onclick="return confirm('are you sure to exit ?')"
        th:href="@{/logout}" class="item" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>
