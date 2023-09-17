@@ -6,6 +6,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class DownloadService {
     ContactRepository contactRepository;
     public boolean downloadUsersNotes(Integer userId) {
         List<Contact> userContacts = contactRepository.allNotesByUserId(userId);
+        Logger logger = LoggerFactory.getLogger(DownloadService.class);
         if(userContacts.size() <1) return false;
         boolean isSuccess = true;
         String notesFolder = "";
@@ -68,11 +71,11 @@ public class DownloadService {
             FileOutputStream out = new FileOutputStream(home + "/" + notesFolder + "/note_" +userId  + ".xlsx");
             workbook.write(out);
             out.close();
-            System.out.println("saved in computer.");
+            logger.debug("saved in computer.");
         }
         catch (Exception e) {
             isSuccess = false;
-            System.out.println("Something went wrong while downloading files : " + e.getMessage());
+            logger.error("Something went wrong while downloading files : " + e.getMessage());
         }
         return isSuccess;
     }

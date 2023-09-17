@@ -3,6 +3,8 @@ package info.keeper.controllers;
 import info.keeper.models.User;
 import info.keeper.repositories.UserRepository;
 import info.keeper.service.DownloadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,13 @@ public class DownloadController {
 
     @Autowired
     private UserRepository userRepository;
+    Logger logger = LoggerFactory.getLogger(DownloadController.class);
+
+    // Use construction injection to field injection.
+    public DownloadController(DownloadService downloadService, UserRepository userRepository) {
+        this.downloadService = downloadService;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/notes")
     public String downloadNotesByUser(Model model, Principal principal) {
@@ -36,7 +45,7 @@ public class DownloadController {
 
         model.addAttribute("user", user);
         model.addAttribute("downloadStatus", message);
-        System.out.println("Notes getting downloaded for the user with ID :" + userId );
+        logger.info("Notes getting downloaded for the user with ID :" + userId );
         return "normal_user/user_dashboard";
     }
 }
