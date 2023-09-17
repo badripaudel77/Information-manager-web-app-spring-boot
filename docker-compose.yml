@@ -18,7 +18,7 @@ services:
 
     #Define Environment
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/info_keeper_sb_docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/test_dump
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=_BadriPostgres1@
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
