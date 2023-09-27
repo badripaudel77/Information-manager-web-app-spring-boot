@@ -77,7 +77,6 @@ public class ForgotPasswordController {
     private boolean sendEmail(String email, HttpSession session) {
         int randomNumber = ThreadLocalRandom.current().nextInt(100000,999999);
         session.setAttribute("verificationCode", randomNumber); //set it to session
-        //System.out.println("random number is : " + randomNumber);
         final boolean isSent = emailService.sendEmail(email, fromMail, "Password Reset Code", randomNumber);
         return isSent;
     }

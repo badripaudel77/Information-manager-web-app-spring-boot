@@ -27,9 +27,6 @@ public class User {
     @Size(min = 3, max = 100, message = "Password should be between 3 and 100")
     private String  password;
 
-//    @Size(min = 3, max = 10, message = "Confirm Password must match password.")
-//    private String  confirmPassword;
-
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 

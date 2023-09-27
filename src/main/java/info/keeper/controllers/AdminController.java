@@ -17,12 +17,13 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/admin", method = RequestMethod.GET)
 public class AdminController {
-
-    @Autowired
     private AdminRepository adminRepository;
-
-    @Autowired
     private UserRepository userRepository;
+
+    public AdminController(AdminRepository adminRepository, UserRepository userRepository) {
+        this.adminRepository = adminRepository;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/index")
     public String showAdminPage(Principal principal, Model model) {

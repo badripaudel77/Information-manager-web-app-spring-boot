@@ -35,11 +35,13 @@ import java.util.Optional;
 @RequestMapping(value = "/users", method = RequestMethod.GET) // for user
 public class UserController {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private AdminRepository adminRepository;
+
+    public UserController(UserRepository userRepository, AdminRepository adminRepository) {
+        this.userRepository = userRepository;
+        this.adminRepository = adminRepository;
+    }
 
     @GetMapping
     public String dashboard(Model model, Principal principal) {
@@ -68,12 +70,6 @@ public class UserController {
     public String aboutPage(Model model) {
         model.addAttribute("title", "Admin Notice - Information Keeper");
         ArrayList<AdminMessage> adminMessages = adminRepository.findAll();
-        System.out.println(adminMessages.size());
-
-//        List<AdminMessage> adminMessages = new ArrayList<>();
-//        adminMessages.add(new AdminMessage(1, "this is demo message1"));
-//        adminMessages.add(new AdminMessage(2, "this is demo message2"));
-//        adminMessages.add(new AdminMessage(3, "this is demo message3"));
         model.addAttribute("adminMsgList", adminMessages);
         return "normal_user/admin_notice"; // return home.html page from templates folder
     }

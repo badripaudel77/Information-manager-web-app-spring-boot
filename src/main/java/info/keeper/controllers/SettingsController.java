@@ -28,18 +28,13 @@ public class SettingsController {
     @PostMapping("/users/resetPassword")
     public String resetPassword(@RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword,
                                 Principal principal, Model model) {
-        //TODO : reset password logic
         User user = userRepository.findUserByUsername(principal.getName());
-        System.out.println("original password is " + user.getPassword() + "entered pw : " + oldPassword + " new pw " + newPassword);
         model.addAttribute("user", user);
         model.addAttribute("title", "Settings Page - " + user.getName());
 
         BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         boolean isPasswordMatches = bcrypt.matches(oldPassword, user.getPassword());
         if(isPasswordMatches) {
-            //update password
-            System.out.println("password matched");
-            //user.setPassword(newPassword);
             user.setPassword(bcrypt.encode(newPassword));
             userRepository.save(user);
             model.addAttribute("pwUpdated", "Password has been updated.");

@@ -4,8 +4,8 @@ import info.keeper.models.Contact;
 import info.keeper.models.User;
 import info.keeper.repositories.ContactRepository;
 import info.keeper.repositories.UserRepository;
+import info.keeper.service.ContactService;
 import info.keeper.utils.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,11 +30,16 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/users", method = RequestMethod.GET) // for user
 public class ContactController {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private ContactRepository contactRepository;
+    private final UserRepository userRepository;
+    private final ContactRepository contactRepository;
+    private final ContactService contactService;
+
+    public ContactController(UserRepository userRepository, ContactRepository contactRepository, ContactService contactService) {
+        this.userRepository = userRepository;
+        this.contactRepository = contactRepository;
+        this.contactService = contactService;
+    }
 
     // show add Note form
     @GetMapping("/addNote")
@@ -188,5 +193,18 @@ public class ContactController {
 
         //send to form
         return "normal_user/add_note";
+    }
+
+    @PostMapping(value = "/importContacts", consumes = "multipart/form-data")
+    public String importContacts(@Valid @ModelAttribute("contact") Contact contact, BindingResult result,
+                             Model model, HttpSession session, Principal principal,
+                             @RequestParam("importContactFile") MultipartFile contactsFile) throws IOException {
+        boolean isImported = contactService.saveAllImportedContactsToDatabase(contactsFile, principal);
+        if(isImported) {
+            session.setAttribute("message", new Message("Contacts Imported Successfully", "alert-success"));
+            return "redirect:/users/notes/0";
+        }
+        session.setAttribute("message", new Message("Something went wrong while importing contacts for the user", "alert-danger"));
+        return "redirect:/users/notes/0";
     }
 }

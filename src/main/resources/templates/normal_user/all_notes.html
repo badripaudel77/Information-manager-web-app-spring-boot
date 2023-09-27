@@ -17,19 +17,24 @@
             <span th:text="${session.deleteMsg.content}"></span>
             <th:block th:text="${#session.removeAttribute('deleteMsg')}"></th:block>
         </div>
+        <div class="alert alert-info">
+            <form name="addContact"  th:object="${contact}"
+                  method="POST" enctype="multipart/form-data"
+                  th:action="@{/users/importContacts}">
 
+                <div class="alert" th:if="${session.message}" th:classappend="${session.message.type}" role="alert">
+                    <span th:text="${session.message.content}"></span>
+                    <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+                </div>
+                <div style="display: flex; flex-wrap: wrap">
+                    <input type="file" class="form-control" id="importContactFile" name="importContactFile">
+                    <button type="submit" class="btn btn-success btn-block" style="margin-top: 3px;">Import</button>
+                </div>
+            </form>
+        </div>
         <h5 class="text-center" th:text="${user.name} + '\'s all notes'"></h5>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
-                <!--      search bar      -->
-                <!--            <div class="input-group md-form form-sm form-2 pl-0 my-3">-->
-                <!--                <input class="form-control my-0 py-1 lime-border" name="search" id="search"-->
-                <!--                       type="text" placeholder="Search for notes..." aria-label="Search">-->
-                <!--                <div class="input-group-append">-->
-                <!--                    <span class="input-group-text lime lighten-2" id="basic-text1"><i class="fas fa-search text-grey" aria-hidden="true"></i></span>-->
-                <!--                </div>-->
-                <!--            </div> -->
-                <!--     end of search bar       -->
                 <thead>
                 <tr>
                     <th scope="col">NoteID</th>

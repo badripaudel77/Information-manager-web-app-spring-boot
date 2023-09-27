@@ -59,7 +59,6 @@ public class HomeController {
     @PostMapping("/registerUser")
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,
                                HttpSession session, @RequestParam(value = "terms", defaultValue = "false") boolean terms)  {
-        //System.out.println("agree ? " + terms + " user ? " + user);
         try {
             if(!terms) throw new Exception("Please agree to the terms and condition first."); // will go to catch block
             if(result.hasErrors()) {
