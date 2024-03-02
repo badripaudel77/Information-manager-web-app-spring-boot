@@ -3,6 +3,8 @@
 version: '3.1'
 services:
   application:
+    container_name: container_main_info_keeper
+    image: info_keeper_main_image
     build: . # or build the image from the dockerfile located at the current directory
     # pull docker image that I've already created for this application. It can be local docker image as well
     # image: badripaudel77/info-keeper-spring-boot-docker:my-info-app #docker image from the docker-hub
@@ -18,7 +20,7 @@ services:
 
     #Define Environment
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/test_dump
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_database:5432/info_keeper_sb_docker
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=_BadriPostgres1@
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -27,6 +29,7 @@ services:
 
     #official image of postgres from the docker hub, by default pulls the latest one.
     image: postgres
+    container_name: container_postgres_service
 
     # map the ports for postgres
     ports:
@@ -38,13 +41,14 @@ services:
 # use data from this location.
     volumes:
 #      - grails_web_db:/var/lib/postgresql/data
-      - /Users/badripaudel/IdeaProjects/Information-Keeper-SB/data:/var/lib/postgresql/data
+       - ./data:/var/lib/postgresql/data
 
     # define environments for the postgres
     environment:
       - POSTGRES_PASSWORD=_BadriPostgres1@
       - POSTGRES_USER=postgres
       - POSTGRES_DB=info_keeper_sb_docker
+#      - POSTGRES_DB=test_dump
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

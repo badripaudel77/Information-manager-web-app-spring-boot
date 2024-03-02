@@ -14,6 +14,8 @@ WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 
+RUN dos2unix mvnw
+
 # Avoid permission error, change the permission.
 RUN chmod +x mvnw
 
