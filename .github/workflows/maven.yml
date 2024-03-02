@@ -23,4 +23,6 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
+        run: chmod +x mvnw
+      - name: Install  
         run: ./mvnw clean install
