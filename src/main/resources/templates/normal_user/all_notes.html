@@ -32,8 +32,8 @@
                 </div>
             </form>
         </div>
+        <div class="table-responsive" th:if= "${totalPages}> 0">
         <h5 class="text-center" th:text="${user.name} + '\'s all notes'"></h5>
-        <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -68,7 +68,7 @@
             </table>
         </div> <!-- end of responsive table tag -->
         <!--     for pagination   -->
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" th:if= "${totalPages}> 0">
             <ul class="pagination">
                 <li th:if="${currentPage != 0}" class="page-item">
                     <a th:href="@{'/users/notes/' + ${currentPage-1}}" class="page-link">Previous</a>
