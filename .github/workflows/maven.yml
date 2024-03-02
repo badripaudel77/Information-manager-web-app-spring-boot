@@ -26,3 +26,6 @@ jobs:
         run: chmod +x mvnw
       - name: Install  
         run: echo 'Hello Badri Paudel'
+      - name: Run APP
+        run: ./mvnw spring-boot:run
+
