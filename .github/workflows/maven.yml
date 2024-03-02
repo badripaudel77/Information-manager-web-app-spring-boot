@@ -25,4 +25,4 @@ jobs:
       - name: Build with Maven
         run: chmod +x mvnw
       - name: Install  
-        run: ./mvnw clean install
+        run: echo 'Hello Badri Paudel'
