@@ -13,6 +13,9 @@ services:
     ports:
       - "5000:8080"
 
+    networks:
+      - info_keeper_network
+
     # This APP services depends upon postgres Service
     depends_on:
       [pg_database]
@@ -34,6 +37,9 @@ services:
     # map the ports for postgres
     ports:
       - "5433:5432"
+
+    networks:
+      - info_keeper_network
 # As data is stored on container's volume, it will be erased once we delete or remove the container.
 # to persist data even after the removal of the container, we need to mount volume so that the volume on /var/lib/postgresql/data
 # will be mapped to the given location.
@@ -54,6 +60,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+networks:
+  info_keeper_network:
+    driver: bridge
 
 #volumes:
 #  grails_web_db:
