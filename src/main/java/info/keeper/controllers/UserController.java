@@ -6,6 +6,7 @@ import info.keeper.models.User;
 import info.keeper.repositories.AdminRepository;
 import info.keeper.repositories.ContactRepository;
 import info.keeper.repositories.UserRepository;
+import info.keeper.service.UserService;
 import info.keeper.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -37,20 +38,19 @@ public class UserController {
 
     private UserRepository userRepository;
     private AdminRepository adminRepository;
+    private UserService userService;
 
-    public UserController(UserRepository userRepository, AdminRepository adminRepository) {
+    public UserController(UserRepository userRepository, AdminRepository adminRepository, UserService userService) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
+        this.userService = userService;
     }
 
     @GetMapping
     public String dashboard(Model model, Principal principal) {
-        String username = principal.getName();
         //get user using username
-        User user = userRepository.findUserByUsername(username);
-
+        User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("title", "User Dashboard Page - Information Keeper");
-
         model.addAttribute("user", user);
         return "normal_user/user_dashboard";
     }
@@ -58,7 +58,7 @@ public class UserController {
     //show profile page
     @GetMapping("/profile/")
     public String showProfileOfUser(Model model, Principal principal) {
-        User user = userRepository.findUserByUsername(principal.getName());
+        User user = userService.getUserByUsername(principal.getName());
 
         model.addAttribute("user", user);
         model.addAttribute("title", "Profile Page - " + user.getName());
@@ -69,7 +69,7 @@ public class UserController {
     @GetMapping("/admin-notice")
     public String aboutPage(Model model) {
         model.addAttribute("title", "Admin Notice - Information Keeper");
-        ArrayList<AdminMessage> adminMessages = adminRepository.findAll();
+        ArrayList<AdminMessage> adminMessages = userService.getAllAdminMessages();
         model.addAttribute("adminMsgList", adminMessages);
         return "normal_user/admin_notice"; // return home.html page from templates folder
     }

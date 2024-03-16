@@ -38,10 +38,16 @@ public class AdminController {
     @PostMapping("/saveMessage")
     public String saveMessage(@ModelAttribute("adminMessage")AdminMessage adminMessage,
                               Principal principal, HttpSession session) {
+        saveAdminMessage(adminMessage, principal);
+        session.setAttribute("message", new Message("You have sent notice to everyone", "alert-success"));
+        return  "redirect:/admin/index/";
+    }
+
+    // TODO: Move to a separate admin service file.
+    private void saveAdminMessage(AdminMessage adminMessage, Principal principal) {
         adminMessage.setDate(new Date());
         adminMessage.setPostedBy(principal.getName().split("@")[0]); // show only before @
         adminRepository.save(adminMessage);
-        session.setAttribute("message", new Message("You have sent notice to everyone", "alert-success"));
-        return  "redirect:/admin/index/";
+
     }
 }
