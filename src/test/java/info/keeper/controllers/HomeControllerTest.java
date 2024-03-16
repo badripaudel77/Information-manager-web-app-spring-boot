@@ -3,6 +3,7 @@ package info.keeper.controllers;
 import info.keeper.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -61,6 +62,7 @@ class HomeControllerTest {
      * More the coverage, the better it will be.
      */
     @Test
+    @DisplayName("Ensure that GET: / returns the expected response with status and title of the page")
     void testHomePage() throws Exception {
         assertThat(homeController).isNotNull();
         // assert homeController != null; // => same as above
@@ -71,6 +73,7 @@ class HomeControllerTest {
 
     @Test
     void testLoginPage() {
+
     }
 
     @Test

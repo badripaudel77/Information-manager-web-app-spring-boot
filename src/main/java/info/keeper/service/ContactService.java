@@ -7,6 +7,9 @@ import info.keeper.repositories.UserRepository;
 import info.keeper.utils.CsvUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,5 +41,13 @@ public class ContactService {
                 logger.error("Something went wrong while importing contacts : ");
                 return false;
             }
-        }
+    }
+
+    public Page<Contact> findContactsByUser(String username, int pageNumber ) {
+        User user = userRepository.findUserByUsername(username);
+        //Pageable has current page and number of notes per page
+        Pageable pageable = PageRequest.of(pageNumber, 5); // 5 notes per page
+        Page<Contact> allContacts = contactRepository.findContactsByUser(user.getId(), pageable);
+        return allContacts;
+    }
 }

@@ -27,6 +27,7 @@ public class AdminController {
 
     @GetMapping("/index")
     public String showAdminPage(Principal principal, Model model) {
+        // In Prod app, put all the business login inside of the service and just use that in the controller.
         User user = userRepository.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
         model.addAttribute("adminMessage", new AdminMessage());

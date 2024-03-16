@@ -5,10 +5,10 @@ import info.keeper.models.User;
 import info.keeper.repositories.ContactRepository;
 import info.keeper.repositories.UserRepository;
 import info.keeper.service.ContactService;
+import info.keeper.service.UserService;
 import info.keeper.utils.Message;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +34,13 @@ public class ContactController {
     private final UserRepository userRepository;
     private final ContactRepository contactRepository;
     private final ContactService contactService;
+    private final UserService userService;
 
-    public ContactController(UserRepository userRepository, ContactRepository contactRepository, ContactService contactService) {
+    public ContactController(UserRepository userRepository, ContactRepository contactRepository, ContactService contactService, UserService userService) {
         this.userRepository = userRepository;
         this.contactRepository = contactRepository;
         this.contactService = contactService;
+        this.userService = userService;
     }
 
     // show add Note form
@@ -108,11 +110,8 @@ public class ContactController {
     public String findContactsByUser(@PathVariable("pageNumber") int pageNumber, Pageable pageable,
                                      Model model, Principal principal) {
 
-        User user = userRepository.findUserByUsername(principal.getName());
-
-        //Pageable has current page and number of notes per page
-        Pageable pageable1 = PageRequest.of(pageNumber, 5); // 5 notes per page
-        Page<Contact> allContacts = contactRepository.findContactsByUser(user.getId(), pageable1);
+        User user = userService.getUserByUsername(principal.getName());
+        Page<Contact> allContacts = contactService.findContactsByUser(principal.getName(), pageNumber);
 
         model.addAttribute("title", "All Of your Notes || Information Keeper");
         model.addAttribute("user", user);
