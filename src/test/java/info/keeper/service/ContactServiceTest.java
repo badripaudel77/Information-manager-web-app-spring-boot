@@ -1,27 +1,32 @@
 package info.keeper.service;
 
+import info.keeper.AppEnum;
 import info.keeper.models.Contact;
 import info.keeper.models.User;
 import info.keeper.repositories.ContactRepository;
 import info.keeper.repositories.UserRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) // only for ordering.
 class ContactServiceTest {
     @Mock
     private ContactRepository contactRepository;
@@ -33,6 +38,7 @@ class ContactServiceTest {
 
     private User user;
     private Integer userId;
+    private Integer contactId;
     private String username;
     private Integer pageNumber;
     private Long expectedNumberOfContacts;
@@ -47,6 +53,7 @@ class ContactServiceTest {
         user = new User();
         user.setEmail(username);
         user.setId(userId);
+        contactId = 22;
     }
     @AfterEach
     void cleanUp() {
@@ -54,20 +61,69 @@ class ContactServiceTest {
     }
 
     @Test
+    // @Order(2)
+    @DisplayName("Assert that method returns the correct contacts for the given user.")
+    @Tag("Contact_Service_Test")
     void findContactsByUser() {
-        Mockito.when(userRepository.findUserByUsername(username)).thenReturn(user);
+        when(userRepository.findUserByUsername(username)).thenReturn(user);
         Pageable pageable = PageRequest.of(pageNumber, 5);
-        Mockito.when(contactRepository.findContactsByUser(userId, pageable)).thenReturn(getContactsWithPaginationForUser());
+        when(contactRepository.findContactsByUser(userId, pageable)).thenReturn(getContactsWithPaginationForUser());
         Page<Contact> allContacts = serviceUnderTest.findContactsByUser(username, pageNumber);
         assertThat(allContacts.getTotalElements()).isEqualTo(expectedNumberOfContacts);
         Assertions.assertAll("Assert that returned elements have My Contact Name in name and 123456789 in phone number",
                 () -> {
                     allContacts.getContent().forEach( contact -> {
-                        Assertions.assertTrue(contact.getName().contains("My Contact Name") &&
+                        assertTrue(contact.getName().contains("My Contact Name") &&
                                 contact.getPhoneNumber().contains("123456789"));
                     });
                 }
         );
+    }
+
+    @Test
+    @DisplayName("Test for deleting contact/note provided that the note belongs to the current user.")
+    @Tag("Contact_Service_Test")
+    void deleteNote() throws IOException {
+        Optional<Contact> contactOptional = getOptionalContact();
+        Principal principal = mock(Principal.class);
+        when(principal.getName()).thenReturn(username);
+        when(this.contactRepository.findById(contactId)).thenReturn(contactOptional);
+        when(this.userRepository.findUserByUsername(username)).thenReturn(user);
+        // Perform delete operation
+        AppEnum appEnum = serviceUnderTest.deleteNote(contactId, principal);
+        // Assert that there was a correct return type.
+        assertThat(appEnum).isEqualTo(AppEnum.OPERATION_SUCCESS);
+        // Assert that contactRepository was invoked only once for delete method.
+        verify(this.contactRepository, times(1)).delete(contactOptional.get());
+    }
+
+    @RepeatedTest(2) // repeat this two times.
+    @Order(1)
+    @DisplayName("Assert for required field's null values: With order 1, executes first.")
+    @Tag("NullCheck")
+    void assertNullValues() {
+        assert this.contactRepository != null;
+        assertThat(this.userRepository).isNotNull();
+        assertThat(user.getId() >= 0);
+        assertEquals(this.serviceUnderTest.getClass(), ContactService.class);
+        assertTrue(this.contactRepository instanceof ContactRepository);
+    }
+
+    @DisplayName("Disabled until bug #42 has been resolved")
+    @Tag("disabled")
+    @Disabled()
+    void disableTest() {
+        // Nothing here
+    }
+
+    @NotNull
+    private Optional<Contact> getOptionalContact() {
+        Contact contact = new Contact();
+        contact.setId(contactId);
+        contact.setPhoneNumber("+1234567890");
+        contact.setImageURL("http://abc.io");
+        contact.setUser(user);
+        return Optional.of(contact);
     }
 
     private Page<Contact> getContactsWithPaginationForUser() {

@@ -1,5 +1,6 @@
 package info.keeper.controllers;
 
+import info.keeper.AppEnum;
 import info.keeper.models.Contact;
 import info.keeper.models.User;
 import info.keeper.repositories.ContactRepository;
@@ -150,24 +151,17 @@ public class ContactController {
     @DeleteMapping("/notes/delete/{id}")
     public String deleteNote(@PathVariable(value = "id") int id,
                              Model model, HttpSession session, Principal principal) throws IOException {
-        Optional<Contact> optionalContact = contactRepository.findById(id);
-        Contact contact = optionalContact.get();
-
-        User user = userRepository.findUserByUsername(principal.getName());
-        if(user.getId() != contact.getUser().getId()) {
+        AppEnum appEnum = this.contactService.deleteNote(id, principal);
+        if(appEnum == AppEnum.OPERATION_FAILED) {
             session.setAttribute("deleteMsg", new Message("Not Authorized", "alert-danger"));
             return "redirect:/users/notes/0";
         }
-        // delete image also if its not the default image
-        if(!(contact.getImageURL()).equals("default.png")) {
-            File folderToDeleteFile = new ClassPathResource("static/images").getFile();
-            File file = new File(folderToDeleteFile, contact.getImageURL());
-            file.delete();
+        if(appEnum == AppEnum.OPERATION_SUCCESS) {
+            session.setAttribute("deleteMsg", new Message("Note Deleted Successfully", "alert-success"));
+            return "redirect:/users/notes/0";
         }
-
-        contactRepository.delete(contact);
-        session.setAttribute("deleteMsg", new Message("Note Deleted Successfully", "alert-success"));
-
+        // Some message for unknown error.
+        session.setAttribute("deleteMsg", new Message("Unknown Error Occurred", "alert-danger"));
         return "redirect:/users/notes/0";
     }
 
