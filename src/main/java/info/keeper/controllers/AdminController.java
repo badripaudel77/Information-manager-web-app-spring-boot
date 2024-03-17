@@ -2,8 +2,8 @@ package info.keeper.controllers;
 
 import info.keeper.models.AdminMessage;
 import info.keeper.models.User;
-import info.keeper.repositories.AdminRepository;
 import info.keeper.repositories.UserRepository;
+import info.keeper.service.AdminService;
 import info.keeper.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,12 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/admin", method = RequestMethod.GET)
 public class AdminController {
-    private AdminRepository adminRepository;
+    private AdminService adminService;
     private UserRepository userRepository;
 
-    public AdminController(AdminRepository adminRepository, UserRepository userRepository) {
-        this.adminRepository = adminRepository;
+   @Autowired
+    public AdminController(AdminService adminService, UserRepository userRepository) {
+        this.adminService = adminService;
         this.userRepository = userRepository;
     }
 
@@ -38,16 +39,8 @@ public class AdminController {
     @PostMapping("/saveMessage")
     public String saveMessage(@ModelAttribute("adminMessage")AdminMessage adminMessage,
                               Principal principal, HttpSession session) {
-        saveAdminMessage(adminMessage, principal);
+        this.adminService.saveAdminMessage(adminMessage, principal);
         session.setAttribute("message", new Message("You have sent notice to everyone", "alert-success"));
         return  "redirect:/admin/index/";
-    }
-
-    // TODO: Move to a separate admin service file.
-    private void saveAdminMessage(AdminMessage adminMessage, Principal principal) {
-        adminMessage.setDate(new Date());
-        adminMessage.setPostedBy(principal.getName().split("@")[0]); // show only before @
-        adminRepository.save(adminMessage);
-
     }
 }
