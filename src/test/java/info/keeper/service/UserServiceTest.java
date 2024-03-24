@@ -6,15 +6,16 @@ import static org.mockito.Mockito.*;
 import info.keeper.models.User;
 import info.keeper.repositories.UserRepository;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * REF: https://www.baeldung.com/java-spring-mockito-mock-mockbean (Mockito.Mock vs @Mock syntax)
  * REF : https://stackoverflow.com/questions/16467685/difference-between-mock-and-injectmocks (@InjectMocks and @Mock)
  */
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
     // This UserRepository will be mocked (for some method of it, we will be returning the result of the mock and not the real db call)
     @Mock

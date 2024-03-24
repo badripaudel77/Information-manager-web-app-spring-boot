@@ -4,6 +4,7 @@ import info.keeper.models.AdminMessage;
 import info.keeper.repositories.AdminRepository;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.Date;
 
@@ -20,5 +21,10 @@ public class AdminService {
         adminMessage.setDate(new Date());
         adminMessage.setPostedBy(principal.getName().split("@")[0]); // show only before @
         adminRepository.save(adminMessage);
+    }
+
+    @PostConstruct
+    public void someSetUp() {
+        System.out.println("<<<<< Some Setup here >>>>>");
     }
 }
