@@ -47,4 +47,11 @@ MVC
 
 ## Deploy full stack Spring Boot application in elastic bean stalk [checkout to local branch]
 
+### Actuator
+- To access actuator endpoint, hit /actuator and you'll see all the available endpoints. By default, only /actuator/health is enabled.
+- To get all other endpoints, include "management.endpoints.web.exposure.include=*" in application.properties file.
+- For example, now you can access: /actuator/metrics, it will give all the metrics information which you can
+  use to see additional information. Like copy name displayed in /metrics and append that as : metrics/hikaricp.connections
+- This will give hikari connection pool info like total no of connections. And other ppts will give other important information.
+
                       
