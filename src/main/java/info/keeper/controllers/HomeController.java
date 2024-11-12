@@ -4,15 +4,13 @@ import info.keeper.models.User;
 import info.keeper.repositories.UserRepository;
 import info.keeper.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +28,16 @@ public class HomeController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private Environment environment;
+
+    @GetMapping("/env")
+    @ResponseBody
+    public String getEnv() {
+        String envPPT = environment.getProperty("app.env.name");
+        System.out.println("ENV_PPT " + envPPT);
+        return "Environment => " + envPPT;
+    }
     // displays home page
     @GetMapping("/")
     public String homePage(Model model) {
