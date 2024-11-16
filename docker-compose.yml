@@ -27,11 +27,12 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=_BadriPostgres1@
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#      - APP_ENV_NAME=uat
 
   pg_database:
 
     #official image of postgres from the docker hub, by default pulls the latest one.
-    image: postgres
+    image: postgres:16
     container_name: container_postgres_service
 
     # map the ports for postgres

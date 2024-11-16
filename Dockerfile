@@ -21,7 +21,8 @@ RUN chmod +x mvnw
 
 # Install dependencies on into image
 RUN ./mvnw dependency:go-offline
-
+# This will be overriden if defined in docker compose file or during build if passed to do so.
+ENV APP_ENV_NAME qat
 
 # copy all of our code into image
 #copy src file to app folder inside the image

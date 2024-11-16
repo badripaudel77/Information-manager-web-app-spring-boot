@@ -1,5 +1,10 @@
 ## Explanation and Information
 
+- Sometimes, to build image (caching effect will not show the recent changes sometimes)
+```bash
+   docker-compose up --build 
+```
+
 #### Note : For detail explanation of how to dockerize simple spring boot Java application you can visit my website at [guides to code ](https://guidestocode.com/java/how-to-dockerize-java-spring-boot-application/)
 ------------
 ### Information Keeping Web Application using Spring Boot, Data JPA, Thymeleaf and Spring  Security.
