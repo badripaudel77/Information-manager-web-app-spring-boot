@@ -71,7 +71,7 @@ jobs:
         with:
           name: build-artifacts
           path: target/*.jar
-      -name: Run the App
+      - name: Run the App
        run: mvn spring-boot:run
 
   docker:
