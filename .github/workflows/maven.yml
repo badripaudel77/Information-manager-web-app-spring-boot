@@ -1,3 +1,4 @@
+# https://docs.github.com/en/actions/use-cases-and-examples/using-containerized-services/creating-postgresql-service-containers
 name: Github Action CI with Java, Maven, Spring Boot and Docker
 
 on:
@@ -13,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         ports:
           - 5432:5432
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: info_keeper_sb
-        options: >
-          --health-cmd='pg_isready -U postgres -d info_keeper_sb' 
-          --health-interval=10s 
-          --health-timeout=15s 
-          --health-retries=10
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout code
