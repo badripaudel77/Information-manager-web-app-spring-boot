@@ -54,6 +54,8 @@ jobs:
           DB_PASSWORD: postgres
           DB_NAME: info_keeper_sb
         run: mvn test
+      - name: Build with Maven
+          run: mvn clean install
 
   build:
     runs-on: ubuntu-latest
@@ -66,8 +68,6 @@ jobs:
         with:
           java-version: '18'
           distribution: 'temurin'
-      - name: Build with Maven
-        run: mvn clean install
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
