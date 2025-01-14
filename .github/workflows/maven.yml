@@ -56,7 +56,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    needs: test #It is dependent on tests job steps
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
