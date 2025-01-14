@@ -37,7 +37,7 @@ public class User {
     @Size(min = 10, max = 400, message = "Intro should be between 10 and 400")
     private String about;
 
-    //user has one to many relationship with contact
+    //user has one-to-many relationship with contact
     //mapped by user field in Contact class, don't create additional table
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Contact> contacts;

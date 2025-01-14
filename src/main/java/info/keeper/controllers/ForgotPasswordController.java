@@ -42,7 +42,6 @@ public class ForgotPasswordController {
         }
         else {
             //write logic to send email
-
             final boolean isSent = sendEmail(email, session);
             if(!isSent) {
                 session.setAttribute("message", new Message("something went wrong while sending email.", "alert-info"));

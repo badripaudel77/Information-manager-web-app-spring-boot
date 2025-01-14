@@ -36,7 +36,7 @@ public class Contact {
     @Size(min = 5, message = "At least 5 characters long description is required")
     private String description;
 
-    //contact has many to one relationship with user
+    //contact has many-to-one relationship with user
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id")
     private User user;

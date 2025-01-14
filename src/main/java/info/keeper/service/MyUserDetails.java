@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class MyUserDetails implements UserDetails {
@@ -26,8 +25,7 @@ public class MyUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
-       // return List.of(simpleGrantedAuthority); // only defined in JDK 9+
-
+        // return List.of(simpleGrantedAuthority); // only defined in JDK 9+
         //java 8 way
         grantedLists.add(simpleGrantedAuthority);
         return grantedLists;

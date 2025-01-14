@@ -29,7 +29,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/users", method = RequestMethod.GET) // for user
+@RequestMapping(value = "/users", method = RequestMethod.GET)
 public class ContactController {
 
     private final UserRepository userRepository;
@@ -64,13 +64,11 @@ public class ContactController {
                              @RequestParam("profileImage") MultipartFile file) {
 
         if (result.hasErrors()) {
-            //System.out.println("error is " + result.getAllErrors().toString());
             model.addAttribute("contact", contact);
             return "normal_user/add_note";
         }
         try {
             User user = userRepository.findUserByUsername(principal.getName());
-
             if(file.isEmpty()) {
                 // set default avatar if file is empty
                 contact.setImageURL("default.png");
@@ -79,7 +77,6 @@ public class ContactController {
             if (!file.isEmpty()) {
                 //upload file to images folder and save name to database
                 contact.setImageURL(user.getId() + "_" + file.getOriginalFilename());
-                //System.out.println("\n original file name : " + file.getOriginalFilename() + " contact id : " + contact.getId());
                 File folderToSaveFile = new ClassPathResource("static/images").getFile();
                 Path path = Paths.get(folderToSaveFile.getAbsolutePath() + File.separator + user.getId() + "_" + file.getOriginalFilename()); // userId_fileName
 
@@ -94,8 +91,8 @@ public class ContactController {
 
             model.addAttribute("contact", new Contact());
             session.setAttribute("message", new Message("New information has been added", "alert-success"));
-        } catch (Exception e) {
-            //e.printStackTrace();
+        }
+        catch (Exception e) {
             session.setAttribute("message", new Message("Something Went Wrong : " + e.getMessage(), "alert-danger"));
             model.addAttribute("contact", contact);
             return "normal_user/add_note";
@@ -130,7 +127,6 @@ public class ContactController {
         User user = userRepository.findUserByUsername(principal.getName());
         Optional<Contact> contact = contactRepository.findById(id);
 
-        //System.out.println("user id : " + user.getId() + " - " + contact.get().getUser().getId() + "");
         if (!contact.isPresent()) {
             model.addAttribute("contact", null);
             return "normal_user/note_details";
@@ -169,10 +165,7 @@ public class ContactController {
     public String showFormForUpdate(@RequestParam("contactId") int contactId, Model model,
                                     HttpSession session, Principal principal) {
         // get the contact for that contact id
-        System.out.println("update" + contactId);
-
         User user = userRepository.findUserByUsername(principal.getName());
-
         Optional<Contact> contact = contactRepository.findById(contactId);
 
         //check if user has authority to perform this operation
@@ -181,9 +174,8 @@ public class ContactController {
             session.setAttribute("deleteMsg", new Message("Not Authorized", "alert-danger"));
             return "redirect:/users/notes/0";
         }
-        //set country as model to pre-populate the form
+        //set contact as model to pre-populate the form
         model.addAttribute("contact", contact.get());
-
         //send to form
         return "normal_user/add_note";
     }

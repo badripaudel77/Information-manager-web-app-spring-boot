@@ -2,7 +2,6 @@ package info.keeper.service;
 
 import info.keeper.models.AdminMessage;
 import info.keeper.models.User;
-import info.keeper.repositories.AdminRepository;
 import info.keeper.repositories.UserRepository;
 import info.keeper.utils.UserRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
