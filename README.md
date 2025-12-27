@@ -73,8 +73,9 @@ The application allows users to securely manage their personal information and c
 management.endpoints.web.exposure.include=*
 ```
 
-🏃Run the Application 
-#### Using Docker Image
+### 🏃Run the Application 
+#### 1️⃣ Run Locally
+#### 2️⃣ Using Docker compose as described below:
 
 Pull the application Docker image:
 
